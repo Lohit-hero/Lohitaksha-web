@@ -1,0 +1,82 @@
+/* ---------------------------
+   Global Styles
+----------------------------*/
+body {
+    background-color: #0a0a0a;
+    color: #e5e5e5;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
+/* ---------------------------
+   Section Headers
+----------------------------*/
+.research-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+.research-header span {
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 0.5rem;
+}
+
+/* ---------------------------
+   Accordion Styles
+----------------------------*/
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+.accordion-trigger.open .accordion-arrow {
+    transform: rotate(180deg);
+}
+
+/* ---------------------------
+   Utility Enhancements
+----------------------------*/
+a {
+    transition: opacity 0.2s ease-in-out;
+}
+a:hover {
+    opacity: 1;
+}
+
+/* Glassmorphism cards */
+.card-glass {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    padding: 1.25rem;
+}
+
+/* Mobile menu animation */
+#mobile-nav {
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+/* Canvas background */
+#constellation-canvas {
+    background-color: #0a0a0a;
+}
