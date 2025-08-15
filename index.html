@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lohitaksha Koppada | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Basic styles for the page */
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar for a more modern look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        /* Style for the research section headers */
+        .research-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+        .research-header span {
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+        }
+        
+        /* Styles for the new accordion functionality */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-trigger.open .accordion-arrow {
+            transform: rotate(180deg);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="antialiased">
+
+    <!-- The interactive constellation background will be rendered here -->
+    <canvas id="constellation-canvas" class="fixed top-0 left-0 w-full h-full z-0 bg-zinc-950"></canvas>
+
+    <!-- Main content container with a higher z-index -->
+    <div class="relative z-10">
+        
+        <!-- Navbar -->
+        <header class="sticky top-0 z-40 border-b border-white/10 bg-black/60 backdrop-blur-lg">
+            <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                <a href="#home" class="flex items-center gap-2 font-semibold text-blue-400">
+                    Lohitaksha Koppada
+                </a>
+                <div id="desktop-nav" class="hidden md:flex items-center gap-6 text-sm">
+                    <!-- Desktop navigation links will be injected here -->
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-lg">☰</button>
+            </nav>
+            <div id="mobile-nav" class="hidden md:hidden border-t border-white/10">
+                <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3">
+                    <!-- Mobile navigation links will be injected here -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="scroll-mt-24">
+            <div class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-sm tracking-widest uppercase opacity-70">Welcome, Explorer!</p>
+                    <h1 id="hero-name" class="text-4xl md:text-5xl font-bold leading-tight mt-2 text-blue-300"></h1>
+                    <p id="hero-tagline" class="mt-4 text-lg opacity-90"></p>
+                    <div id="hero-ctas" class="mt-6 flex flex-wrap gap-3"></div>
+                </div>
+                <div>
+                    <div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold">Meet Lohitaksha</h3>
+                            <p id="hero-summary" class="mt-3 opacity-90"></p>
+                            <div id="hero-chips" class="mt-4 flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">About My Journey</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">
+                        <h4 class="font-semibold">Academic Journey</h4>
+                        <p class="mt-2 opacity-90">First‑author on a peer‑reviewed review article and delivered engaging presentations that spark “light‑bulb” moments. These experiences reinforced collaboration, perseverance, and the power of clear communication.</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">
+                        <h4 class="font-semibold">What I Stand For</h4>
+                        <p class="mt-2 opacity-90">Growth, human connection, and the possibilities that unfold when we believe in ourselves. I create environments where authenticity, learning, and empowerment thrive.</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">
+                        <h4 class="font-semibold">Focus Areas</h4>
+                        <div id="about-chips" class="mt-3 flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Initiatives Section -->
+        <section id="initiatives" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Initiatives</h2>
+                <div id="initiatives-container" class="grid md:grid-cols-2 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="research-header"><span>Research</span></h2>
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-blue-300 text-center mb-4 text-xl">Underway</h3>
+                        <div id="research-underway-container" class="space-y-4"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-blue-300 text-center mb-4 text-xl">Accomplished</h3>
+                        <div id="research-accomplished-container" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Skills</h2>
+                <div id="skills-container" class="grid md:grid-cols-2 gap-4"></div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                 <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Academic Achievements & Publications</h2>
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-blue-300 mb-4 text-xl">Academic Achievements</h3>
+                        <div id="achievements-academic-container" class="space-y-4"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-blue-300 mb-4 text-xl">Publications & Books</h3>
+                        <div id="achievements-publications-container" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Certifications Section -->
+        <section id="certifications" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Certifications</h2>
+                <div id="certifications-container" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Education</h2>
+                <div id="education-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-24 py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-8">Contact</h2>
+                <div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <h4 class="font-semibold">Let’s connect</h4>
+                            <p class="opacity-90 mt-2">Whether you want to collaborate, share ideas, or simply say hello — I’m just a click away. Let’s create something extraordinary together.</p>
+                            <div id="contact-ctas" class="mt-4 flex flex-wrap gap-3"></div>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
+                            <form onsubmit="event.preventDefault()" class="space-y-3">
+                                <div><label class="text-sm">Name</label><input class="w-full mt-1 px-3 py-2 rounded-xl border border-white/20 bg-transparent" placeholder="Your name"></div>
+                                <div><label class="text-sm">Email</label><input type="email" class="w-full mt-1 px-3 py-2 rounded-xl border border-white/20 bg-transparent" placeholder="you@example.com"></div>
+                                <div><label class="text-sm">Message</label><textarea rows="4" class="w-full mt-1 px-3 py-2 rounded-xl border border-white/20 bg-transparent" placeholder="How can we collaborate?"></textarea></div>
+                                <button class="w-full rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">Send (demo)</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 border-t border-white/10">
+            <div class="max-w-6xl mx-auto px-4 text-sm opacity-80 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p id="footer-text"></p>
+                <div id="footer-links" class="flex items-center gap-4"></div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // ---------- Data (from your JS file) ----------
+            const NAV = [
+                { id: 'home', label: 'Home' }, { id: 'about', label: 'About' }, { id: 'initiatives', label: 'Initiatives' },
+                { id: 'research', label: 'Research' }, { id: 'skills', label: 'Skills' }, { id: 'achievements', label: 'Achievements' },
+                { id: 'certifications', label: 'Certifications' }, { id: 'education', label: 'Education' }, { id: 'contact', label: 'Contact' },
+            ];
+
+            const PROFILE = {
+                name: 'Lohitaksha Koppada',
+                tagline: 'An entrepreneur, author, and researcher navigating the intersection of technology, human potential, and innovation.',
+                summary: 'I believe that the most meaningful progress comes from within. My work is a reflection of this belief, focused on empowering individuals to develop the mindset of a true innovator. Through my journey in science, technology, and entrepreneurship, I’ve seen firsthand how a growth-oriented mindset can turn challenges into stepping stones. My purpose is to connect with people and provide them with the tools and perspective to unlock their potential, lead with resilience, and build a future that is authentically their own.',
+                email: 'lohitaksha.koppada123@gmail.com',
+                social: { linkedin: 'https://lohitakshakoppada.wixsite.com/lohitakshaden', site: 'https://lohitakshakoppada.wixsite.com/lohitaksha-fiard' },
+            };
+
+            const EDUCATION = [
+                { level: 'M.Tech Materials Science and Engineering', school: 'IIT Kanpur', year: '2027', note: 'Focusing on advanced topics in materials science and engineering.' },
+                { level: 'Integrated Master’s Program in Chemical Sciences', school: 'University of Hyderabad', year: '2025', note: 'Recognized for academic excellence, achieving 1st rank in the cohort for two consecutive years (4th and 5th year) and 2nd rank overall among combined Master’s and Integrated Master\'s students in the 5th year.' },
+                { level: '12th Grade', school: 'D.A.V. Public School', year: '2020', cgpa: '94.25%' },
+                { level: '10th Grade', school: 'Jindal School', year: '2018', cgpa: '90.2%' }
+            ];
+
+            const INITIATIVES = [
+                { title: 'FIARD — Coaching for Lasting Growth', blurb: 'Fostering Insight, Ambition, Resilience, and Development — a global coaching platform blending leadership strategies, neuroscience-informed mindset practices, and practical goal systems to help clients achieve lasting transformation.', ctas: [{ label: 'Visit Website', href: PROFILE.social.site }], tags: ['Coaching', 'Leadership', 'Mindset', 'Personal Growth'] },
+                { title: 'Lohitaksha’s Den — Curious Conversations', blurb: 'A podcast exploring leadership, personal development, philosophy, innovation, and everyday wisdom through thoughtful conversations with diverse guests.', ctas: [], tags: ['Podcast', 'Leadership', 'Personal Development'] },
+            ];
+            
+            const RESEARCH = {
+                underway: [
+                    { title: 'Book Project — The Quantum Revolution: A Journey into the Microscopic World', details: 'Lead author of a two-volume advanced Quantum Mechanics series with Dr. Caio Firme, Associate Professor at Federal University of Rio Grande do Norte, for graduate-level students, accepted by CRC Press.', tags: ['Quantum Mechanics', 'Book Writing', 'Theoretical Physics'] },
+                    { title: 'M.Tech Project — Fe-30Mn-8Al-1C Steel & Hydrogen Embrittlement', details: 'Investigating mechanical and microstructural evolution of Fe-30Mn-8Al-1C Steel under hydrogen. Combining fracture toughness tests, hydrogen charging, microanalysis (XRF/SEM/TEM) and computational modelling to study failure modes and mitigation strategies.', tags: ['Materials Science', 'Metallurgy', 'Computational Modelling'] },
+                ],
+                accomplished: [
+                    { title: 'Master’s Project: Investigating Confined Hydrogen Atoms', details: 'Conducted a theoretical and computational investigation of confined hydrogen atoms subjected to screened Coulomb potentials. The project used advanced quantum mechanical methods to analyze the electronic structure and applied information-theoretic measures like Shannon entropy and statistical complexity to characterize the system’s quantum behavior.', tags: ['Quantum Mechanics', 'Computational Physics', 'Atomic Physics', 'Information Theory'] },
+                    { title: 'Published Review Article on Neuroinflammation', details: 'Authored and published a review article titled "Eicosanoid Signaling in Neuroinflammation Associated with Alzheimer\'s Disease" in the European Journal of Pharmacology (Elsevier). The project involved a deep dive into biochemical pathways and their therapeutic potential, requiring extensive collaboration and scientific rigor.', tags: ['Biochemistry', 'Neuroscience', 'Published Research', 'Collaboration'] },
+                    { title: 'Summer Internship: Biosignaling Pathways', details: 'Engaged in a two-month internship focused on cellular communication and signal transduction. This involved comprehensive literature reviews to understand molecular mechanisms and their role in maintaining cellular homeostasis and disease progression, contributing to a broader awareness of therapeutic interventions.', tags: ['Molecular Biology', 'Physiology', 'Research'] },
+                ],
+            };
+
+            const SKILLS = [
+                { title: 'Programming & ML', points: ['Python', 'Sci-Kit Learn', 'PyTorch', 'TensorFlow', 'C/C++', 'Java', 'Data Analysis (Pandas, NumPy, Matplotlib)', 'Machine Learning Models (Linear/Logistic Regression, KNN, SVM, Decision Trees)', 'Unsupervised Learning (K-Means, DBSCAN, Hierarchical Clustering)', 'Model Evaluation (MSE, R², Confusion Matrix)', 'Cross-validation', 'Recommender Systems'], tags: ['Data Science', 'Deep Learning', 'Computational Methods'] },
+                { title: 'Research & Science', points: ['Nanoscience & Technology', 'Photonics', 'Materials Science', 'Quantum Mechanics', 'Theoretical & Computational Analysis', 'Literature Survey', 'Information Theory (Shannon entropy, Statistical complexity)'], tags: ['Computational Physics', 'Theoretical Chemistry', 'Neuroscience'] },
+                { title: 'Software & Tools', points: ['Docker & Kubernetes', 'NumPy', 'Pandas', 'Matplotlib', 'Jupyter Notebooks'], tags: ['Containerization', 'Data Visualization'] },
+                { title: 'Professional', points: ['Public Speaking', 'Coaching', 'Leadership', 'Project Management', 'Collaborative Writing', 'Interdisciplinary Teamwork'], tags: ['Personal Growth', 'Communication'] },
+            ];
+
+            const ACHIEVEMENTS = {
+                academic: [
+                    { title: 'Highest Academic Performer', note: 'Secured 1st rank in the Integrated Master’s program cohort for two consecutive years, with an overall 2nd rank in the 5th year.' },
+                    { title: 'GATE: 2025', note: 'Achieved All India Rank (AIR) 727.' },
+                    { title: 'CSIR-NET-JRF: 2025', note: 'Achieved All India Rank (AIR) 37 in the Assistant Professor and Admission to Ph.D. category.' },
+                    { title: 'Featured in School Magazine', note: 'Recognized for securing a position in the toppers list of the 10th-grade board exams, 2018.' },
+                ],
+                publications: [
+                    { title: 'Master’s Research Thesis (Published)', note: 'Computed and analyzed energy spectra and information-theoretic measures to characterize the system\'s quantum behavior. Results provide novel insights into quantum confinement effects.' },
+                    { title: 'Lead Author, Published Review Article', note: 'Led a collaborative review article titled "Eicosanoid signaling in neuroinflammation associated with Alzheimer’s disease," published in the European Journal of Pharmacology (May 2024).' },
+                    { title: 'It\'s Your Life: Make it Happen', publisher: 'Amazon', date: 'April 9, 2025', note: 'A self-development book aimed at inspiring readers to take charge of their lives and achieve their personal and professional goals.' },
+                    { title: 'Brainwaves of The Bold: Harnessing the Power of the Mind for Effective Leadership', publisher: 'Amazon', date: 'May 19, 2025', note: 'A transformative leadership book that empowers individuals to lead courageously and authentically.' },
+                    { title: 'Studies on Shell Confined Atoms', publisher: 'LAMBERT Academic Publishing', date: 'June 12, 2025', note: 'Explores the quantum mechanical behavior of atoms under spatial confinement and screened Coulomb potentials, with relevance to nanoscience and high-pressure physics.' },
+                ],
+            };
+
+            const CERTIFICATIONS = [
+                { title: 'Machine Learning with Python', issuer: 'IBM Developer Skills Network / Cognitive Class', date: 'May 6, 2025', notes: 'Mastered machine learning fundamentals through a comprehensive, hands-on course. Gained proficiency in Python data analysis and visualization with Pandas, NumPy, and Matplotlib. Developed expertise in a wide range of supervised and unsupervised models using scikit-learn and applied various evaluation metrics. Executed a full machine learning pipeline on a real-world capstone project, from data preprocessing to model refinement.' },
+                { title: 'Supervised Machine Learning Course', issuer: 'Scaler', date: 'May 20, 2025', notes: 'Completed an intensive course on supervised learning, building a strong foundation in regression, instance-based, probabilistic, and tree-based models. Gained practical experience with advanced techniques like regularization, feature engineering, and ensemble methods including Random Forest and XGBoost. Developed robust model evaluation skills covering cross-validation, hyperparameter tuning, and understanding the bias-variance trade-off.' },
+                { title: 'Unsupervised Machine Learning Course', issuer: 'Scaler', date: 'May 15, 2025', notes: 'Developed a deep understanding of clustering algorithms including K-Means, K-Medoids, and DBSCAN. Implemented algorithms from scratch and applied them to complex datasets. Acquired a strong grasp of hierarchical clustering methods and dendrogram interpretation. Evaluated cluster performance using key metrics like Silhouette Score and the Elbow Method to determine optimal cluster counts.' },
+            ];
+            
+            // ---------- Helper Functions ----------
+            const createChip = (text) => `<span class="px-2 py-1 rounded-full border border-blue-500/50 text-xs opacity-80 bg-blue-500/10 text-blue-300">${text}</span>`;
+            const createCard = (content) => `<div class="rounded-2xl border border-white/10 p-5 shadow-sm bg-white/5 backdrop-blur-lg">${content}</div>`;
+            const createAccordion = (title, content) => `
+                <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg overflow-hidden">
+                    <button class="accordion-trigger flex justify-between items-center w-full p-5 text-left">
+                        <span class="font-semibold">${title}</span>
+                        <svg class="accordion-arrow w-4 h-4 transition-transform transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 pt-0 opacity-90 text-sm">${content}</div>
+                    </div>
+                </div>
+            `;
+
+
+            // ---------- Render Functions ----------
+            const renderNav = () => {
+                const desktopNav = document.getElementById('desktop-nav');
+                const mobileNavContainer = document.querySelector('#mobile-nav > div');
+                let navHTML = '';
+                NAV.forEach(n => {
+                    navHTML += `<a href="#${n.id}" class="opacity-80 hover:opacity-100">${n.label}</a>`;
+                });
+                desktopNav.innerHTML = navHTML;
+                mobileNavContainer.innerHTML = navHTML;
+            };
+
+            const renderHero = () => {
+                document.getElementById('hero-name').innerText = `I’m ${PROFILE.name}`;
+                document.getElementById('hero-tagline').innerText = PROFILE.tagline;
+                document.getElementById('hero-summary').innerText = PROFILE.summary;
+                document.getElementById('hero-ctas').innerHTML = `
+                    <a href="mailto:${PROFILE.email}" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">Email Me</a>
+                    <a href="${PROFILE.social.linkedin}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">LinkedIn</a>
+                    <a href="${PROFILE.social.site}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">FIARD</a>
+                `;
+                document.getElementById('hero-chips').innerHTML = ['Entrepreneurship', 'Coaching', 'Personal Development', 'Leadership', 'Author', 'Podcaster', 'Resilience', 'Mindset', 'Public Speaking'].map(createChip).join('');
+            };
+            
+            const renderAbout = () => {
+                document.getElementById('about-chips').innerHTML = ['Leadership', 'Mindset', 'Coaching', 'Research', 'Writing', 'Podcasting'].map(createChip).join('');
+            };
+
+            const renderInitiatives = () => {
+                const container = document.getElementById('initiatives-container');
+                container.innerHTML = INITIATIVES.map(it => {
+                    const ctasHTML = it.ctas.length ? `<div class="mt-4 flex gap-3">${it.ctas.map(c => `<a href="${c.href}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-3 py-1.5 text-sm hover:bg-white/10 transition">${c.label}</a>`).join('')}</div>` : '';
+                    const content = `
+                        <h4 class="font-semibold">${it.title}</h4>
+                        <p class="mt-2 opacity-90">${it.blurb}</p>
+                        <div class="mt-3 flex flex-wrap gap-2">${it.tags.map(createChip).join('')}</div>
+                        ${ctasHTML}
+                    `;
+                    return createCard(content);
+                }).join('');
+            };
+
+            const renderResearch = () => {
+                const underwayContainer = document.getElementById('research-underway-container');
+                underwayContainer.innerHTML = RESEARCH.underway.map(r => {
+                    const content = `<p class="opacity-90 mt-1">${r.details}</p><div class="mt-2 flex flex-wrap gap-2">${r.tags.map(createChip).join('')}</div>`;
+                    return createAccordion(r.title, content);
+                }).join('');
+
+                const accomplishedContainer = document.getElementById('research-accomplished-container');
+                accomplishedContainer.innerHTML = RESEARCH.accomplished.map(r => {
+                    const content = `<p class="opacity-90 mt-1">${r.details}</p><div class="mt-2 flex flex-wrap gap-2">${r.tags.map(createChip).join('')}</div>`;
+                    return createAccordion(r.title, content);
+                }).join('');
+            };
+            
+            const renderSkills = () => {
+                const container = document.getElementById('skills-container');
+                container.innerHTML = SKILLS.map(s => {
+                    const content = `
+                        <ul class="list-disc list-inside space-y-1">${s.points.map(p => `<li>${p}</li>`).join('')}</ul>
+                        <div class="mt-3 flex flex-wrap gap-2">${s.tags.map(createChip).join('')}</div>
+                    `;
+                    return createAccordion(s.title, content);
+                }).join('');
+            };
+
+            const renderAchievements = () => {
+                const academicContainer = document.getElementById('achievements-academic-container');
+                academicContainer.innerHTML = ACHIEVEMENTS.academic.map(a => createAccordion(a.title, a.note)).join('');
+
+                const publicationsContainer = document.getElementById('achievements-publications-container');
+                publicationsContainer.innerHTML = ACHIEVEMENTS.publications.map(p => {
+                    const content = `
+                        ${p.publisher ? `<p class="opacity-70 text-sm mt-1">Publisher: ${p.publisher}</p>` : ''}
+                        ${p.date ? `<p class="opacity-70 text-sm">Published: ${p.date}</p>` : ''}
+                        <p class="mt-2">${p.note}</p>
+                    `;
+                    return createAccordion(p.title, content);
+                }).join('');
+            };
+
+            const renderCertifications = () => {
+                const container = document.getElementById('certifications-container');
+                container.innerHTML = CERTIFICATIONS.map(cert => {
+                    const content = `
+                        <p class="font-semibold text-blue-300">${cert.issuer}</p>
+                        <p class="opacity-70 mt-1">Issued: ${cert.date}</p>
+                        <p class="mt-2 whitespace-pre-line">${cert.notes}</p>
+                    `;
+                    return createAccordion(cert.title, content);
+                }).join('');
+            };
+
+            const renderEducation = () => {
+                const container = document.getElementById('education-container');
+                container.innerHTML = EDUCATION.map(edu => {
+                    const content = `
+                        <h4 class="font-semibold text-blue-300">${edu.level}</h4>
+                        <p class="opacity-90 mt-1">${edu.school} ${edu.year}</p>
+                        ${edu.cgpa ? `<p class="opacity-70 text-sm mt-2">${edu.cgpa}</p>` : ''}
+                        ${edu.note ? `<p class="opacity-90 mt-2 text-sm">${edu.note}</p>` : ''}
+                    `;
+                    return createCard(content);
+                }).join('');
+            };
+            
+            const renderContactAndFooter = () => {
+                document.getElementById('contact-ctas').innerHTML = `
+                    <a href="mailto:${PROFILE.email}" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">${PROFILE.email}</a>
+                    <a href="${PROFILE.social.linkedin}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">LinkedIn</a>
+                    <a href="${PROFILE.social.site}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-2xl border border-white/20 px-4 py-2 hover:bg-white/10 transition">Website</a>
+                `;
+                document.getElementById('footer-text').innerText = `© ${new Date().getFullYear()} ${PROFILE.name}. All rights reserved.`;
+                document.getElementById('footer-links').innerHTML = `
+                    <a href="${PROFILE.social.linkedin}" class="flex items-center gap-2">LinkedIn</a>
+                    <a href="${PROFILE.social.site}" class="flex items-center gap-2">Website</a>
+                    <a href="mailto:${PROFILE.email}" class="flex items-center gap-2">Email</a>
+                `;
+            };
+
+            // ---------- Event Listeners ----------
+            const setupEventListeners = () => {
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileNav = document.getElementById('mobile-nav');
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileNav.classList.toggle('hidden');
+                    mobileMenuButton.textContent = isHidden ? '☰' : '✕';
+                });
+                
+                document.querySelectorAll('#mobile-nav a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileNav.classList.add('hidden');
+                        mobileMenuButton.textContent = '☰';
+                    });
+                });
+
+                // Accordion listener
+                document.body.addEventListener('click', (e) => {
+                    const trigger = e.target.closest('.accordion-trigger');
+                    if (!trigger) return;
+
+                    const content = trigger.nextElementSibling;
+                    trigger.classList.toggle('open');
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            };
+
+            // ---------- Canvas Animation ----------
+            const runConstellation = () => {
+                const canvas = document.getElementById('constellation-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                const mouse = { x: 0, y: 0 };
+                let animationFrameId;
+
+                const resizeCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.vx = (Math.random() - 0.5) * 0.5;
+                        this.vy = (Math.random() - 0.5) * 0.5;
+                        this.radius = Math.random() * 2 + 1;
+                        this.color = `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.1})`;
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) this.vx = -this.vx;
+                        if (this.y > canvas.height || this.y < 0) this.vy = -this.vy;
+                        this.x += this.vx;
+                        this.y += this.vy;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                }
+
+                const init = () => {
+                    particles = [];
+                    const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                };
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const dx = particles[i].x - particles[j].x;
+                            const dy = particles[i].y - particles[j].y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 150) {
+                                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 150})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                        const mouseDx = particles[i].x - mouse.x;
+                        const mouseDy = particles[i].y - mouse.y;
+                        const mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
+                        if (mouseDistance < 200) {
+                            ctx.strokeStyle = `rgba(135, 206, 250, ${1 - mouseDistance / 200})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                    animationFrameId = requestAnimationFrame(animate);
+                };
+
+                window.addEventListener('resize', () => { resizeCanvas(); init(); });
+                window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+                
+                resizeCanvas();
+                init();
+                animate();
+            };
+
+            // ---------- Initialize App ----------
+            const initApp = () => {
+                renderNav();
+                renderHero();
+                renderAbout();
+                renderInitiatives();
+                renderResearch();
+                renderSkills();
+                renderAchievements();
+                renderCertifications();
+                renderEducation();
+                renderContactAndFooter();
+                setupEventListeners();
+                runConstellation();
+            };
+
+            initApp();
+        });
+    </script>
+
+</body>
+</html>
